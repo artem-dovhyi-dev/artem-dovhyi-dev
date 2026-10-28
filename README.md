@@ -21,20 +21,36 @@ I build the user-facing side of LLM features and the evaluation that shows they 
 
 ## 🧪 Featured work: a regression runner for AI assistants
 
-A regression runner that tells AI assistant teams whether their assistant still answers correctly across a real conversation.
+AI assistant teams on an enterprise financial product couldn't tell whether a change had made their assistant worse across a real conversation. I designed and built the check they adopted.
 
-- **A real conversation, through the real product.** It holds the multi-turn conversation through the product's own API.
+```mermaid
+flowchart LR
+  QA["QA expectations<br/>in plain language"] --> R["Regression runner"]
+  R <-->|"multi-turn conversation"| A["AI assistant<br/>via the product API"]
+  S["Simulated user"] -->|"answers clarifying questions"| R
+  R --> J["LLM judge"]
+  J --> Rep["Report:<br/>verdict, cost, latency"]
+```
+
+- **The real product, not a prompt check.** The runner holds the whole conversation through the product's own API.
 - **A simulated user** answers the assistant's clarifying questions, so the test reaches the answer.
-- **An LLM judge** checks the result against expectations QA writes in plain language.
+- **An LLM judge** on AWS Bedrock scores the result against what QA expects.
 - **Cost and latency on every run**, because every test is itself a set of LLM calls.
+- **One engine, many teams.** Each assistant team keeps its own test suite.
 
 <div align="center">
 
-| 6 | ~3 months | ~90% |
+| **6** | **about 3 months** | **about 90%** |
 | :---: | :---: | :---: |
 | AI assistant teams adopted it | from first implementation to adoption | agreement between the judge and QA review |
 
 </div>
+
+A QA engineer on my team saw the need. I took it from a proof of concept to the shared tool, and the technical implementation is mine.
+
+## 🧱 Before that
+
+5+ years of production React and TypeScript. On an enterprise advertising platform I created the shared UI library that four modules adopted, and covered the frontend lead role for four months across three subteams.
 
 ## 🛠️ Toolbox
 
